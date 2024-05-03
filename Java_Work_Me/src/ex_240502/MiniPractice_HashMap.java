@@ -69,13 +69,14 @@ public class MiniPractice_HashMap {
 //					String key = it.next(); // 키
 //					Person person = dic.get(key); // 값
 //					if (key.equals(searchName)) {
+//						Person person = dic.get(searchName);
 //						System.out.println("이름 : " + key + " 전번 : " + person.getPhoneNum() + " 생성 시간 : " + person.getDate());
 //						break;
 //					}
 //				}
 				Person result = dic.get(searchName);
 				if(result==null) {
-					System.out.println("해당하는 이름을 찾을 수 없습니다.");
+					System.out.println("해당하는 "+searchName+"이 없습니다.");
 				}
 				else {
 					System.out.println("이름 : " + result.getName() + " 전번 : " + result.getPhoneNum() + " 생성 시간 : " + result.getDate());
@@ -83,14 +84,15 @@ public class MiniPractice_HashMap {
 				
 			
 				if (keys.isEmpty()) {
-					System.out.println("검색한 "+searchName+"이 없습니다.");	} 
+					System.out.println("검색한 "+searchName+"이 없습니다.");	
+				} 
 				
 				continue;
 				
 			} else if (weather.equals("4")) {
 				System.out.println("삭제할 이름 입력 >> ");
 				String searchName = scanner.next();
-				
+				/*
 				Set<String> keys = dic.keySet(); // 모든 키를 Set 컬렉션에 받아옴
 				Iterator<String> it = keys.iterator(); // Set에 접근하는 Iterator 리턴
 				while (it.hasNext()) {
@@ -101,6 +103,14 @@ public class MiniPractice_HashMap {
 						System.out.println(searchName+"를 삭제했습니다.");
 						break;
 					}
+				}*/
+				Person value = dic.get(searchName);
+				if(value==null) {
+					System.out.println("해당하는 "+searchName+"이 없습니다.");	
+				}
+				else {
+					dic.remove(searchName);
+					System.out.println(searchName+"를 삭제했습니다.");
 				}
 
 			} else if (weather.equals("5")) {
@@ -109,8 +119,8 @@ public class MiniPractice_HashMap {
 				
 				ArrayList<String>keys = new ArrayList<String>(dic.keySet());
 				//랜덤한 숫자 가져옴
-				int boundary = keys.size();
-				int randomnum = RandomSelectNumber.selectInt(boundary);
+//				int boundary = keys.size();
+				int randomnum = RandomSelectNumber.selectInt(keys.size());
 				
 				//해당하는 랜덤수에 키가지고옴
 				String randomkey = keys.get(randomnum);
