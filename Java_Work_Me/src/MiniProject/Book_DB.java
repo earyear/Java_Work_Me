@@ -5,12 +5,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Book_DB {
 
 	// 연결을 위한 준비물.
-	private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";																		// 변수에 저장.
+	private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";													
 	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	private static final String USERID = "scott";
 	private static final String PASSWORD = "tiger";
@@ -74,9 +76,10 @@ public class Book_DB {
 
 //
 //	// 조회
-	public void selectMember(BookDTO vo) {
+	public List<BookDTO> selectMember() {
 
 //		StringBuffer stringBuffer = new StringBuffer();
+		ArrayList<BookDTO> list = new ArrayList<BookDTO>();
 		try {
 			con = getConn();
 
@@ -93,10 +96,19 @@ public class Book_DB {
 				int price = rs.getInt("price");
 				String bookcate = rs.getString("bookcate");
 //				stringBuffer.append("아이디 : " + id + ", 이름 : " + name + ", 이메일 : " + email + ", 비밀번호: " + pw + "\n");
+				BookDTO vo = new BookDTO();
+				vo.setBookid(id);
+				vo.setBookName(name);
+				vo.setPublish(publish);
+				vo.setAuthor(author);
+				vo.setPrice(price);
+				vo.setCategory(bookcate);
 				
+				list.add(vo);
 				
 				System.out.println(id+" "+name+" "+publish+" ");
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -111,6 +123,7 @@ public class Book_DB {
 				e.printStackTrace();
 			}
 		}
+		return list;
 		
 	}
 ////

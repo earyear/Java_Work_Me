@@ -86,7 +86,7 @@ public class BookView extends JPanel{
 
 	}
 	
-	// DefaultTableModel에 도서 정보들을 설정
+	// DefaultTableModel에 도서 정보들을 설정[테이블 보여지는 곳]
 	public void putResult() { //결과의 값들 잘 설정되도록
 		// model 행 개수 설정
 		model.setRowCount(bookList.size()); // 화면에 나오게 하는것 중요
@@ -108,17 +108,13 @@ public class BookView extends JPanel{
 	public void setBookList(ArrayList<BookDTO> bookList) {
 		this.bookList = bookList;
 	}
-	public void a() {
-		BookDTO vo = new BookDTO();
-		vo.setBookid(Integer.parseInt(tf[0].getText()));
-		vo.setBookName(tf[1].getText());
-		vo.setPublish(tf[2].getText());
-		vo.setAuthor(tf[3].getText());
-		vo.setPrice(Integer.parseInt(tf[4].getText()));
-		vo.setCategory((String) categoryCombo.getSelectedItem());
-		
-		db.selectMember(vo);
-	}
+//	public BookDTO a() {
+//		BookDTO vo = new BookDTO();
+//
+//		db.selectMember();
+//		return vo;
+//	}
+	
 	
 	public BookDTO InsertData() {
 		BookDTO vo = new BookDTO();
