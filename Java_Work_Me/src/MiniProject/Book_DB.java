@@ -74,43 +74,45 @@ public class Book_DB {
 
 //
 //	// 조회
-//	public String selectMember() {
-//
+	public void selectMember(BookDTO vo) {
+
 //		StringBuffer stringBuffer = new StringBuffer();
-//		try {
-//			con = getConn();
-//
-//			String query = "SELECT * FROM BOOK";
-//			pstmt = con.prepareStatement(query);
-//
-//			rs = pstmt.executeQuery();
-//
-//			while (rs.next()) {
-//				int id = rs.getInt("BOOKID");
-//				String name = rs.getString("bookname");
-//				String publish = rs.getString("publish");
-//				String author = rs.getString("author");
-//				int price = rs.getInt("price");
-//				String bookcate = rs.getString("bookcate");
-//
+		try {
+			con = getConn();
+
+			String query = "SELECT * FROM BOOK";
+			pstmt = con.prepareStatement(query);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt("BOOKID");
+				String name = rs.getString("bookname");
+				String publish = rs.getString("publish");
+				String author = rs.getString("author");
+				int price = rs.getInt("price");
+				String bookcate = rs.getString("bookcate");
 //				stringBuffer.append("아이디 : " + id + ", 이름 : " + name + ", 이메일 : " + email + ", 비밀번호: " + pw + "\n");
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			try {
-//				if (rs != null)
-//					rs.close();
-//				if (pstmt != null)
-//					pstmt.close();
-//				if (con != null)
-//					con.close();
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		return stringBuffer.toString();
-//	}
+				
+				
+				System.out.println(id+" "+name+" "+publish+" ");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
 ////
 //	// 수정
 //	public void updateMember(String id, String name, String email, String pw) {

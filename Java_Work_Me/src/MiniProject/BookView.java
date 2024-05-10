@@ -23,8 +23,8 @@ public class BookView extends JPanel{
 	// 패널 선언
 	JPanel p;
 	JComboBox<String> categoryCombo;
-	JLabel bookid[] = new JLabel[header.length]; // 참조형 변수 선언
-	JTextField tf[] = new JTextField[header.length - 1]; // JTextfield 5개 필요 카테고리 하나 빼서
+	JLabel bookid[] = new JLabel[header.length]; 
+	JTextField tf[] = new JTextField[header.length - 1]; // JTextfield는 5개 필요! 카테고리는 제외
 	JButton btnAdd = new JButton("도서추가");
 	JButton btnselect = new JButton("도서조회");
 	
@@ -48,24 +48,26 @@ public class BookView extends JPanel{
 			}
 		}
 		
-		// 도서추가 앞에 빈칸 3개 추가 (버튼 나중에 추가)
+		// 도서선택 앞에 빈칸 2개 추가 (버튼 나중에 추가) > 삭제같은거..
 		for (int i = 0; i < 2; i++) {
 			p.add(new JLabel(" "));
 		}
+		
 		// 버튼 추가
 		p.add(btnselect);
 		p.add(btnAdd);
 	}
 	
-	//JTable 관련 메소드
+	//JTable
 	public void initView() {
 		model = new DefaultTableModel(header, bookList.size()) { // 편집이 됨
-			// isCell 단축키
+			
 			@Override
 			public boolean isCellEditable(int row, int column) { // 패널에 저장되어 있는
 				return false; // 편집안됨
 			}
 		};
+		
 		// 컬럼들의 너비 설정
 		table = new JTable(model);
 		table.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -86,7 +88,7 @@ public class BookView extends JPanel{
 	
 	// DefaultTableModel에 도서 정보들을 설정
 	public void putResult() { //결과의 값들 잘 설정되도록
-		// ** model 행 개수 설정
+		// model 행 개수 설정
 		model.setRowCount(bookList.size()); // 화면에 나오게 하는것 중요
 		// 지역변수 선언
 		BookDTO vo = null;
@@ -106,11 +108,17 @@ public class BookView extends JPanel{
 	public void setBookList(ArrayList<BookDTO> bookList) {
 		this.bookList = bookList;
 	}
-	
-//	public JButton getBtnAdd() {
-//		return btnAdd;
-//	}
-	
+	public void a() {
+		BookDTO vo = new BookDTO();
+		vo.setBookid(Integer.parseInt(tf[0].getText()));
+		vo.setBookName(tf[1].getText());
+		vo.setPublish(tf[2].getText());
+		vo.setAuthor(tf[3].getText());
+		vo.setPrice(Integer.parseInt(tf[4].getText()));
+		vo.setCategory((String) categoryCombo.getSelectedItem());
+		
+		db.selectMember(vo);
+	}
 	
 	public BookDTO InsertData() {
 		BookDTO vo = new BookDTO();
@@ -120,11 +128,13 @@ public class BookView extends JPanel{
 		vo.setAuthor(tf[3].getText());
 		vo.setPrice(Integer.parseInt(tf[4].getText()));
 		vo.setCategory((String) categoryCombo.getSelectedItem());
+		
 		//DB에 삽입
 		db.insertbook(vo);
 		return vo; 
 	}
 
+	//삽입되고 나서 textfield 지워주기(이쁨)
 	public void initInsertData() {
 		for (int i = 0; i < tf.length; i++) {
 			tf[i].setText("");
