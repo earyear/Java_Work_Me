@@ -35,17 +35,21 @@ public class Main extends JFrame {
 				view.putResult(); 
 				view.initInsertData(); //기존의 입력됐던 값 초기화
 			}
-		}); //버튼을 클릭했을때
+		}); //버튼을 클릭했을때(
 		
 		JButton btnselect = view.btnselect;
 		btnselect.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				bookLIst = dao.select();
+				
+//				BookDTO vo = view.a();
+//				dao.insert(vo);
+//				bookLIst = dao.select();
+				bookLIst = (ArrayList<BookDTO>) new Book_DB().selectMember();
 				view.setBookList(bookLIst);
 				view.putResult();
-				view.a();
+				
 			}
 		});
 		
